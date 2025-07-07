@@ -41,14 +41,12 @@
         arjs="sourceType: webcam; detectionMode: mono; maxDetectionRate: 5; cameraParametersUrl: https://raw.githack.com/AR-js-org/AR.js/master/data/data/camera_para.dat; debugUIEnabled: false;">
         <a-assets>
             <a-asset-item id="model" src="assets/scene.obj"></a-asset-item>
+            <img id="mat" src="assets/texture.png" alt="">
             <audio id="sound" src="./assets/audio.mp3" preload="auto"></audio>
         </a-assets>
         <a-marker preset="hiro" soundhandler>
-            <a-entity gltf-model="#model" position="0 0.5 0" scale="11 15 11" animation-mixer="loop: repeat" animation="property: rotation; 
-            to: 0 360 0; 
-            dur: 6500; 
-            easing: linear; 
-            loop: true"></a-entity>
+            <a-entity gltf-model="#model" scale="0.5 0.5 0.5" position="0 0 0" material="#mat"
+        gesture-handler animation-mixer="loop:repeat"></a-entity>
         </a-marker>
         <a-entity sound="src: #sound; autoplay: false; volume: 0.8;"></a-entity>
         <a-camera></a-camera>
