@@ -44,8 +44,13 @@
             <audio id="sound" src="./assets/audio.mp3" preload="auto"></audio>
         </a-assets>
         <a-marker preset="hiro" soundhandler>
-            <a-entity gltf-model="#model" scale="11 15 11" position="0 0 0" gesture-handler
-                animation-mixer="loop:repeat"></a-entity>
+            <a-entity gltf-model="#model" 
+          scale="11 15 11" 
+          position="0 0 0" 
+          gesture-handler
+          animation-mixer="loop:repeat"
+          animation="property: rotation; to: 0 360 0; loop: true; dur: 5000">
+</a-entity>
         </a-marker>
         <a-entity sound="src: #sound; autoplay: false; volume: 0.8;"></a-entity>
         <a-camera></a-camera>
