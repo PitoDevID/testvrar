@@ -41,7 +41,6 @@
         arjs="sourceType: webcam; detectionMode: mono; maxDetectionRate: 5; cameraParametersUrl: https://raw.githack.com/AR-js-org/AR.js/master/data/data/camera_para.dat; debugUIEnabled: false;">
         <a-assets>
             <a-asset-item id="model" src="assets/scene.gltf"></a-asset-item>
-            <a-asset-item id="dasar" src="assets/scene1.gltf"></a-asset-item>
             <audio id="sound" src="./assets/audio.mp3" preload="auto"></audio>
         </a-assets>
         <a-marker preset="hiro" soundhandler>
@@ -50,12 +49,6 @@
             dur: 6500; 
             easing: linear; 
             loop: true"></a-entity>
-            <a-entity gltf-model="#dasar" animation-mixer="loop: repeat" position="0 0 0" scale="0.1 0.1 0.1" animation="property: rotation; 
-            to: 0 365 0; 
-            dur: 6500; 
-            easing: linear; 
-            loop: true">
-            </a-entity>
         </a-marker>
         <a-entity sound="src: #sound; autoplay: false; volume: 0.8;"></a-entity>
         <a-camera></a-camera>
