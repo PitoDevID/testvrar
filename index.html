@@ -33,6 +33,71 @@
                 }
             },
         });
+
+        // Komponen untuk kontrol keyboard
+        AFRAME.registerComponent("keyboard-controls", {
+            schema: {
+                moveSpeed: { type: 'number', default: 0.1 }
+            },
+            init: function () {
+                this.keys = {};
+                this.onKeyDown = this.onKeyDown.bind(this);
+                this.onKeyUp = this.onKeyUp.bind(this);
+
+                // Tambahkan event listener untuk keyboard
+                document.addEventListener('keydown', this.onKeyDown);
+                document.addEventListener('keyup', this.onKeyUp);
+            },
+
+            onKeyDown: function (event) {
+                this.keys[event.code] = true;
+            },
+
+            onKeyUp: function (event) {
+                this.keys[event.code] = false;
+            },
+
+            tick: function () {
+                const position = this.el.getAttribute('position');
+                let moved = false;
+
+                // Kontrol gerakan dengan WASD
+                if (this.keys['KeyW']) {
+                    position.z -= this.data.moveSpeed;
+                    moved = true;
+                }
+                if (this.keys['KeyS']) {
+                    position.z += this.data.moveSpeed;
+                    moved = true;
+                }
+                if (this.keys['KeyA']) {
+                    position.x -= this.data.moveSpeed;
+                    moved = true;
+                }
+                if (this.keys['KeyD']) {
+                    position.x += this.data.moveSpeed;
+                    moved = true;
+                }
+                if (this.keys['KeyQ']) {
+                    position.y += this.data.moveSpeed;
+                    moved = true;
+                }
+                if (this.keys['KeyE']) {
+                    position.y -= this.data.moveSpeed;
+                    moved = true;
+                }
+
+                // Update posisi jika ada perubahan
+                if (moved) {
+                    this.el.setAttribute('position', position);
+                }
+            },
+
+            remove: function () {
+                document.removeEventListener('keydown', this.onKeyDown);
+                document.removeEventListener('keyup', this.onKeyUp);
+            }
+        });
     </script>
 </head>
 
@@ -45,12 +110,22 @@
         </a-assets>
         <a-marker preset="hiro" soundhandler>
             <a-entity gltf-model="#model" scale="0.5 0.5 0.5" position="0 0 0" gesture-handler
-                animation-mixer="loop:repeat" animation="property: rotation; to: 0 360 0; loop: true; dur: 5000">
+                keyboard-controls="moveSpeed: 0.05" animation-mixer="loop:repeat"
+                animation="property: rotation; to: 0 360 0; loop: true; dur: 5000">
             </a-entity>
         </a-marker>
         <a-entity sound="src: #sound; autoplay: false; volume: 0.8;"></a-entity>
         <a-camera></a-camera>
     </a-scene>
+
+    <!-- Instruksi kontrol -->
+    <div
+        style="position: fixed; top: 10px; left: 10px; color: white; font-family: Arial; font-size: 14px; background: rgba(0,0,0,0.7); padding: 10px; border-radius: 5px; z-index: 1000;">
+        <div><strong>Kontrol Keyboard:</strong></div>
+        <div>W/S: Maju/Mundur</div>
+        <div>A/D: Kiri/Kanan</div>
+        <div>Q/E: Atas/Bawah</div>
+    </div>
 </body>
 
 </html>
